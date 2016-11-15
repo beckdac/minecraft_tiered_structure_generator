@@ -4,7 +4,7 @@ Minecraft tiered structure generator
 with setblock commands in vanilla minecraft
 
 E.g. usage:
-./tiered_structure -x 82 -z 358 -y 63 -t 4 -w 10 -b minecraft:cobblestone -f minecraft:fence -e 4
+./tiered_structure.py -x 82 -z 358 -y 63 -t 4 -w 10 -b minecraft:cobblestone -f minecraft:fence -e 4
 Capture the output and paste it into the console
 """
 
@@ -88,7 +88,8 @@ def circle_setblock(radius, x_center, y, z_center, block_id, thin=False,
 
 def tiered_structure(x_center, y_bottom, z_center, tiers,
                         greenspace_width, hardblock_id, fence_id, 
-                        tier_height, clear_first=False):
+                        tier_height, clear_first=False, add_floors=True,
+                        floor_id="minecraft:stone_slab"):
     """
     Generate a tiered structure with greenspace between tiers.
 
@@ -102,6 +103,9 @@ def tiered_structure(x_center, y_bottom, z_center, tiers,
     hardblock_id -- the block type for the hard parts of the structure
     fence_id -- the block type for the fences of the structure
     tier_height -- the height of the wall for each tier
+    clear_first -- should the area and surrounding area be cleared first
+    add_floors -- should floors be created between levels
+    floor_id -- the block type for the floors
     """
 
     if clear_first:
@@ -131,6 +135,11 @@ def tiered_structure(x_center, y_bottom, z_center, tiers,
         # inner hardblock ring
         circle_setblock(radius-1-greenspace_width, x_center, y, z_center,
                 hardblock_id)
+        # floors, if any
+        if add_floors:
+            for r in range(radius-2-greenspace_width, 1, -1):
+                circle_setblock(r, x_center, y, z_center,
+                    floor_id)
         # spider proofing overhang
         circle_setblock(radius+1, x_center, y, z_center, hardblock_id)
         # fence
