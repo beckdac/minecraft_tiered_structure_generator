@@ -29,8 +29,8 @@ def fall_trap_level(x_center, y, z_center, block_id):
     set_block(x + 1, y + y_current, z + 2, block_id)
     set_block(x + 2, y + y_current, z + 1, block_id)
     set_block(x + 2, y + y_current, z, block_id)
-    set_block(x + 1, y + y_current, z + 1, block_id)
-    set_block(x + 1, y + y_current, z, block_id)
+    set_block(x + 1, y + y_current, z - 1, block_id)
+    set_block(x, y + y_current, z - 1, block_id)
 
 
 def mob_spawner(x_center, y_bottom, z_center, block_id):
