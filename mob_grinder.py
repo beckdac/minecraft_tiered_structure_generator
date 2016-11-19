@@ -95,10 +95,19 @@ def mob_spawner(x_center, y_bottom, z_center, block_id):
     # water channel end cap
     for x in range(2):
         for z in [-9, 10]:
-            set_block(x + x_center, y_current, z + z_center, block_id);
+            for y in range(2):
+                set_block(x + x_center, y_current + y, z + z_center, block_id);
     for z in range(2):
         for x in [-9, 10]:
-            set_block(x + x_center, y_current, z + z_center, block_id);
+            for y in range(2):
+                set_block(x + x_center, y_current + y, z + z_center, block_id);
+    # water in the channel
+    for x in range(2):
+        for z in [-8, 9]:
+            set_block(x + x_center, y_current, z + z_center, "minecraft:flowing_water")
+    for z in range(2):
+        for x in [-8, 9]:
+            set_block(x + x_center, y_current, z + z_center, "minecraft:flowing_water")
     # floor chute hole
     for x in range(2):
         for z in range(2):
