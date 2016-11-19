@@ -4,7 +4,7 @@ Minecraft mob spawner generator
 with setblock commands in vanilla minecraft
 
 E.g. usage:
-./mob_spawner.py -x 82 -z 358 -y 60 -b minecraft:cobblestone 
+./mob_grinder.py -x 82 -z 358 -y 60 -b minecraft:cobblestone 
 Capture the output and paste it into the console
 """
 
@@ -69,6 +69,41 @@ def mob_spawner(x_center, y_bottom, z_center, block_id):
     for y in range(3, chamber_height):
         fall_trap_level(x_center, y + y_bottom + 1, z_center, block_id)
     # spawning chamber
+    y_current = y_bottom + 1 + chamber_height
+    # floor
+    for x in range(-9, 11):
+        for z in range(-9, 11):
+            set_block(x + x_center, y_current + 1, z + z_center, block_id);
+    # channel walls
+    for x in [-1, 2]:
+        for z in range(-9, 11):
+            set_block(x + x_center, y_current, z + z_center, block_id);
+    for x in range(-9, 11):
+        for z in [-1, 2]:
+            set_block(x + x_center, y_current, z + z_center, block_id);
+    # water channels
+    for x in range(2):
+        for z in range(-9, 11):
+            set_block(x + x_center, y_current + 1, z + z_center, "minecraft:air");
+            set_block(x + x_center, y_current, z + z_center, "minecraft:air");
+            set_block(x + x_center, y_current - 1, z + z_center, block_id);
+    for x in range(-9, 11):
+        for z in range(2):
+            set_block(x + x_center, y_current + 1, z + z_center, "minecraft:air");
+            set_block(x + x_center, y_current, z + z_center, "minecraft:air");
+            set_block(x + x_center, y_current - 1, z + z_center, block_id);
+    # water channel end cap
+    for x in range(2):
+        for z in [-9, 10]:
+            set_block(x + x_center, y_current, z + z_center, block_id);
+    for z in range(2):
+        for x in [-9, 10]:
+            set_block(x + x_center, y_current, z + z_center, block_id);
+    # floor chute hole
+    for x in range(2):
+        for z in range(2):
+            set_block(x + x_center, y_current - 1, z + z_center, "minecraft:air");
+
 
 
 def main():
