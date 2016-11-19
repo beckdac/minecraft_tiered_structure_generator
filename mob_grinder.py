@@ -129,6 +129,11 @@ def mob_spawner(x_center, y_bottom, z_center, block_id):
         for z in [-9, 10]:
             for y in range(1,3):
                 set_block(x + x_center, y_current + y + 1, z + z_center, block_id);
+    # roof
+    for x in range(-8, 10):
+        for z in range(-8, 10):
+            set_block(x + x_center, y_current + 4, z + z_center, block_id);
+    
 
 
 
