@@ -112,6 +112,23 @@ def mob_spawner(x_center, y_bottom, z_center, block_id):
     for x in range(2):
         for z in range(2):
             set_block(x + x_center, y_current - 1, z + z_center, "minecraft:air");
+    # floor walls
+    for x in [-9, 10]:
+        for z in range(-9, 11):
+            for y in range(1,3):
+                set_block(x + x_center, y_current + y + 1, z + z_center, block_id);
+    for z in range(-9, 11):
+        for x in [-9, 10]:
+            for y in range(1,3):
+                set_block(x + x_center, y_current + y + 1, z + z_center, block_id);
+    for z in [-9, 10]:
+        for x in range(-9, 11):
+            for y in range(1,3):
+                set_block(x + x_center, y_current + y + 1, z + z_center, block_id);
+    for x in range(-9, 11):
+        for z in [-9, 10]:
+            for y in range(1,3):
+                set_block(x + x_center, y_current + y + 1, z + z_center, block_id);
 
 
 
