@@ -4,7 +4,7 @@ Minecraft tiered structure generator
 with setblock commands in vanilla minecraft
 
 E.g. usage:
-./tiered_structure.py -x 82 -z 358 -y 63 -t 4 -w 10 -b minecraft:cobblestone -f minecraft:fence -e 4
+./sand_remains.py -x 82 -z 358 -y 63 -t 4 -w 10 -e 4
 Capture the output and paste it into the console
 """
 
@@ -87,9 +87,11 @@ def circle_setblock(radius, x_center, y, z_center, block_id, thin=False,
 
 
 def tiered_structure(x_center, y_bottom, z_center, tiers,
-                        greenspace_width, hardblock_id, fence_id, 
-                        tier_height, clear_first=False, add_floors=True,
-                        floor_id="minecraft:stone_slab"):
+                        greenspace_width, tier_height,
+                        hardblock_id="minecraft:sand", 
+                        fence_id="minecraft:sand", 
+                        clear_first=False, add_floors=True,
+                        floor_id="minecraft:sand"):
     """
     Generate a tiered structure with greenspace between tiers.
 
@@ -100,12 +102,9 @@ def tiered_structure(x_center, y_bottom, z_center, tiers,
     z_center -- the center of the structure in the z dimension
     tiers -- the number of concentric tiers
     greenspace_width -- the width of the grass area between tiers
-    hardblock_id -- the block type for the hard parts of the structure
-    fence_id -- the block type for the fences of the structure
     tier_height -- the height of the wall for each tier
     clear_first -- should the area and surrounding area be cleared first
     add_floors -- should floors be created between levels
-    floor_id -- the block type for the floors
     """
 
     if clear_first:
@@ -168,18 +167,13 @@ def main():
                         help="the number of tiers to make")
     parser.add_argument("-w", "--greenspace_width", type=int, required=True,
                         help="the width of the grass area between tiers")
-    parser.add_argument("-b", "--hardblock_id", type=str, required=True,
-                        help="the block id of the hard block")
-    parser.add_argument("-f", "--fence_id", type=str, required=True,
-                        help="the block id of the fence")
     parser.add_argument("-e", "--tier_height", type=int, required=True,
                         help="the height of the tiers")
 
     args = parser.parse_args()
 
     tiered_structure(args.x_center, args.y_bottom, args.z_center, args.tiers,
-                        args.greenspace_width, args.hardblock_id,
-                        args.fence_id, args.tier_height)
+                        args.greenspace_width, args.tier_height)
 
 
 if __name__ == "__main__":
